@@ -49,7 +49,7 @@ for file_path in file_paths:
         desired_reservation_time_list_4_r = ['6-10', '8-12', '10-14', '12-16', '14-18', '16-20', '18-22']
         desired_money = [3000,6000]
         desired_money_zero=[0,3000,6000]
-        no_certifiacte_people_week = [ 10000,13000 , 20000, 26000]
+        no_certifiacte_people_week = [ 10000,13000,20000, 26000]
         no_certifiacte_people_weekend = [13000, 18000,26000, 36000]
         # 새로운 엑셀 파일을 생성
         df_sch = pd.DataFrame(index=new_index_values, columns=new_column_names)
@@ -168,7 +168,7 @@ for file_path in file_paths:
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])&(~df_data['할인금액'])&(df_data['할인전금액'].isin(no_certifiacte_people_weekend))
                         if condition.any():
                                 reserved_member = condition[condition].index[0]
-                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}"
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {"버그"}"
                                 df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value
 
 
@@ -304,5 +304,4 @@ for file_path in file_paths:
         
         print("생성 완료")
 
-
-   
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
