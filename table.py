@@ -168,7 +168,7 @@ for file_path in file_paths:
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])&(~df_data['할인금액'])&(df_data['할인전금액'].isin(no_certifiacte_people_weekend))
                         if condition.any():
                                 reserved_member = condition[condition].index[0]
-                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {"버그"}"
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}"
                                 df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value
 
 
@@ -333,7 +333,7 @@ for file_path in file_paths:
                             
                             if condition.any():
                                 reserved_member = condition[condition].index[0]
-                                combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {"주말"}"
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {sign_text}"
                                 df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value
                                     
                                     
@@ -362,7 +362,7 @@ for file_path in file_paths:
                             condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])&(~df_data['할인금액'])&(df_data['할인전금액'].isin(no_certifiacte_people_week))
                             if condition.any():
                                 eserved_member = condition[condition].index[0]
-                                combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {"주말아님"}"
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {sign_text}"
                                 df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value
                                     
                                     
@@ -626,7 +626,7 @@ for file_path in file_paths:
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])&(~df_data['할인금액'])&(df_data['할인전금액'].isin(no_certifiacte_people_weekend))
                         if condition.any():
                                 reserved_member = condition[condition].index[0]
-                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {"버그"}"
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}"
                                 df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value
 
 
@@ -792,7 +792,7 @@ for file_path in file_paths:
                             
                             if condition.any():
                                 reserved_member = condition[condition].index[0]
-                                combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {"주말"}"
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {sign_text}"
                                 df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value
                                     
                                     
@@ -821,7 +821,7 @@ for file_path in file_paths:
                             condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])&(~df_data['할인금액'])&(df_data['할인전금액'].isin(no_certifiacte_people_week))
                             if condition.any():
                                 eserved_member = condition[condition].index[0]
-                                combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {"주말아님"}"
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {sign_text}"
                                 df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value
                                     
                                     
