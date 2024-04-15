@@ -18,16 +18,17 @@ file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel �
 
 for file_path in file_paths:
 
-    date_string = df_data['예약일'][1].replace('.','-') 
-    date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
-
-    # weekday 메서드를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
-    day_of_week_number = date_object.weekday()
     
     # DataFrame으로 읽기
     date=['월요일','화요일','수요일','목요일','금요일','토요일','일요일']
     tennis_value = ['안성맞춤테니스구장(테니스구장(9코트))','안성맞춤테니스구장(테니스구장(10코트))','안성맞춤테니스구장(테니스구장(11코트))','안성맞춤테니스구장(테니스구장(12코트))']
     df_data = pd.read_excel(file_path, index_col=0)
+
+    date_string = df_data['예약일'][1].replace('.','-') 
+    date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
+
+    # weekday 메서드를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
+    day_of_week_number = date_object.weekday()
     
     if df_data['시설명'].isin(tennis_value).any():
         new_column_names = ['9코트', '10코트', '11코트','12코트','비고'] # 필요한 만큼 열 이름을 변경
