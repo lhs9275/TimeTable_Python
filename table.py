@@ -1,11 +1,4 @@
-import pandas as pd
-import re
-from openpyxl.styles import Border, Side, Alignment,PatternFill,Font
-from tkinter import Tk
-from tkinter.filedialog import askopenfilenames
-from openpyxl import Workbook
-from openpyxl.worksheet.page import PageMargins
-import datetime
+
 
 print("파일 선택!!")
 
