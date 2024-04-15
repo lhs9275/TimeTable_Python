@@ -7,9 +7,7 @@ from openpyxl import Workbook
 from openpyxl.worksheet.page import PageMargins
 import datetime
 
-print("팝업이 뜨면 파일들을 선택해주세요!!")
-print("오류 발생시 관리자에게 문의 주세요")
-
+print("집에 가고 싶어용앙")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
 root = Tk()
