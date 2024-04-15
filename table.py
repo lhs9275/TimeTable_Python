@@ -1,6 +1,13 @@
+import pandas as pd
+import re
+from openpyxl.styles import Border, Side, Alignment,PatternFill,Font
+from tkinter import Tk
+from tkinter.filedialog import askopenfilenames
+from openpyxl import Workbook
+from openpyxl.worksheet.page import PageMargins
+import datetime
 
-
-print("파일 선택!!")
+print("파일을 선택하세여")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
 root = Tk()
@@ -10,6 +17,12 @@ root.withdraw()  # Tkinter 창을 숨김
 file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xlsx")])
 
 for file_path in file_paths:
+
+    date_string = df_data['예약일'][1].replace('.','-') 
+    date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
+
+    # weekday 메서드를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
+    day_of_week_number = date_object.weekday()
     
     # DataFrame으로 읽기
     date=['월요일','화요일','수요일','목요일','금요일','토요일','일요일']
@@ -35,6 +48,8 @@ for file_path in file_paths:
         desired_reservation_time_list_4_r = ['6-10', '8-12', '10-14', '12-16', '14-18', '16-20', '18-22']
         desired_money = [3000,6000]
         desired_money_zero=[0,3000,6000]
+        no_certifiacte_people_week = [ 10000,13000 , 20000, 26000]
+        no_certifiacte_people_weekend = [13000, 18000,26000, 36000]
         # 새로운 엑셀 파일을 생성
         df_sch = pd.DataFrame(index=new_index_values, columns=new_column_names)
 
@@ -145,141 +160,56 @@ for file_path in file_paths:
                         end_site = new_column_names.index(new_column_names[change_colums])
                         merge.append((start_site,end_site))
 
+
+                # 미인증 시민 라이트
+                if day_of_week_number==6 or 5:
+                    if (df_data['시설명'] == desired_facility_list[change_colums]).any():
+                        condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])&(~df_data['할인금액'])&(df_data['할인전금액'].isin(no_certifiacte_people_weekend))
+                        if condition.any():
+                                reserved_member = condition[condition].index[0]
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}"
+                                df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value
+
+
+                                start_site = new_index_values.index(new_index_values[j])
+                                end_site = new_column_names.index(new_column_names[change_colums])
+                                merge.append((start_site,end_site))
+
+
+                                index_value = new_index_values.index(new_index_values[j])
+                                column_name = new_column_names.index(new_column_names[change_colums])
+                                specific_cells.append((index_value, column_name))
+                                index_value = new_index_values.index(new_index_values[j+1])
+                                column_name = new_column_names.index(new_column_names[change_colums])
+                                specific_cells.append((index_value, column_name))
+
+                if day_of_week_number != 6 or 5:
+                    if (df_data['시설명'] == desired_facility_list[change_colums]).any():
+                        condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])&(~df_data['할인금액'])&(df_data['할인전금액'].isin(no_certifiacte_people_week))
+                        if condition.any():
+                                reserved_member = condition[condition].index[0]
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}"
+                                df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value
+
+
+                                start_site = new_index_values.index(new_index_values[j])
+                                end_site = new_column_names.index(new_column_names[change_colums])
+                                merge.append((start_site,end_site))
+
+
+                                index_value = new_index_values.index(new_index_values[j])
+                                column_name = new_column_names.index(new_column_names[change_colums])
+                                specific_cells.append((index_value, column_name))
+                                index_value = new_index_values.index(new_index_values[j+1])
+                                column_name = new_column_names.index(new_column_names[change_colums])
+                                specific_cells.append((index_value, column_name))
+
+                
+
                 j=j+2
             
-            # 4시간 연속 
-
-            for k in range(7):
-                if (df_data['시설명'] == desired_facility_list[change_colums]).any():
-                    condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액'].isin(desired_money))
-                    if condition.any():
-                        # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
-                        reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {sign_text}"
-                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value
-                        
-                        
-                        start_site = new_index_values.index(new_index_values[j_1])
-                        end_site = new_column_names.index(new_column_names[change_colums])
-                        merges.append((start_site,end_site))
-                        
-                        
-                        
-                        index_value = new_index_values.index(new_index_values[j_1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value,column_name))
-                        index_value = new_index_values.index(new_index_values[j_1+1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j_1+2])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j_1+3])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        
-
-
-
-                if (df_data['시설명'] == desired_facility_list[change_colums]).any():
-                    condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(abs(df_data['할인전금액']-df_data['추가금액'])==6000)
-                    if condition.any():
-                        # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
-                        reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]}{other_contry}"
-                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value
-                        
-                        
-                        start_site = new_index_values.index(new_index_values[j_1])
-                        end_site = new_column_names.index(new_column_names[change_colums])
-                        merges.append((start_site,end_site))
-                        
-                        
-                        
-                        index_value = new_index_values.index(new_index_values[j_1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value,column_name))
-                        index_value = new_index_values.index(new_index_values[j_1+1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j_1+2])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j_1+3])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-
-                if(df_data['시설명'] == desired_facility_list[change_colums]).any():
-                    condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'].isin(desired_money))&(df_data['할인전금액'] - (df_data['할인금액'] * 5 /4 ) == 6000)
-
-
-                    if condition.any():
-                        # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
-                        reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {sign_text}"
-                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value
-                        
-                        
-                        start_site = new_index_values.index(new_index_values[j_1])
-                        end_site = new_column_names.index(new_column_names[change_colums])
-                        merges.append((start_site,end_site))
-                        
-
-
-                        index_value = new_index_values.index(new_index_values[j_1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value,column_name))
-                        index_value = new_index_values.index(new_index_values[j_1+1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j_1+2])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j_1+3])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        
-                if(df_data['시설명'] == desired_facility_list[change_colums]).any():
-                    condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])    
-
-                    if condition.any():
-                        # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
-                        reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {sign_text}"
-                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value    
-                        
-                        
-                        start_site = new_index_values.index(new_index_values[j_1])
-                        end_site = new_column_names.index(new_column_names[change_colums])
-                        merges.append((start_site,end_site))
-                
-                if(df_data['시설명'] == desired_facility_list[change_colums]).any():
-                    condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'].isin(desired_money_zero))    
-
-                    if condition.any():
-                        # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
-                        reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]}{other_contry}"
-                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value    
-                        
-                        
-                        start_site = new_index_values.index(new_index_values[j_1])
-                        end_site = new_column_names.index(new_column_names[change_colums])
-                        merges.append((start_site,end_site))
-                j_1=j_1+2
-
-
-
-    # 날짜 문자열을 datetime 객체로 변환
-    date_string = df_data['예약일'][1].replace('.','-') 
-    date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
-
-    # weekday 메서드를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
-    day_of_week_number = date_object.weekday()
 
     day_of_week_number = date[day_of_week_number]
-
-
         
     def remove_parentheses(value):
         return re.sub(r'\([^)]*\)', '', str(value))
@@ -372,3 +302,6 @@ for file_path in file_paths:
 
         
         print("생성 완료")
+
+
+   
