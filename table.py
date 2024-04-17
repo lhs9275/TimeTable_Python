@@ -24,12 +24,14 @@ for file_path in file_paths:
     tennis_value = ['안성맞춤테니스구장(테니스구장(9코트))','안성맞춤테니스구장(테니스구장(10코트))','안성맞춤테니스구장(테니스구장(11코트))','안성맞춤테니스구장(테니스구장(12코트))']
     df_data = pd.read_excel(file_path, index_col=0)
 
+    #셀에 있는 날짜를 파이썬이 읽고 변환
     date_string = df_data['예약일'][1].replace('.','-') 
     date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
 
-    # weekday 메서드를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
+    # weekday 메서드와 변환된 data_object를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
     day_of_week_number = date_object.weekday()
-    
+
+    #셀에 있는 시설명이 테니스 벨류면 실행함    
     if df_data['시설명'].isin(tennis_value).any():
         new_column_names = ['9코트', '10코트', '11코트','12코트','비고'] # 필요한 만큼 열 이름을 변경
         new_index_values = ['06:00~07:00', '07:00~08:00', '08:00~09:00', '09:00~10:00', '10:00~11:00', '11:00~12:00', '12:00~13:00','13:00~14:00','14:00~15:00','15:00~16:00','16:00~17:00','17:00~18:00','18:00~19:00','19:00~20:00','20:00~21:00','21:00~22:00'] #행
@@ -47,16 +49,19 @@ for file_path in file_paths:
         desired_reservation_time_list_4 = ['06:00~10:00', '08:00~12:00', '10:00~14:00', '12:00~16:00', '14:00~18:00', '16:00~20:00', '18:00~22:00']
         desired_reservation_time_list_r = ['6-8','8-10','10-12','12-14','14-16','16-18','18-20','20-22']
         desired_reservation_time_list_4_r = ['6-10', '8-12', '10-14', '12-16', '14-18', '16-20', '18-22']
+        
+        #라이트 사용 여부 판별
         desired_money = [3000,6000]
         desired_money_zero=[0,3000,6000]
+        
+        # 미인증 안성시민 판별
         no_certifiacte_people_week = [10000,13000,20000,26000]
         no_certifiacte_people_weekend = [13000, 18000,26000, 36000]
+        
         # 새로운 엑셀 파일을 생성
         df_sch = pd.DataFrame(index=new_index_values, columns=new_column_names)
 
-        #조건문 
-
-
+        # 9~12번 코트
         for change_colums in range(4):
             j=0
             j_1=0
@@ -162,7 +167,9 @@ for file_path in file_paths:
                         merge.append((start_site,end_site))
 
 
-                # 미인증 시민 라이트
+    # 미인증 시민 라이트
+
+                # 주말일 경우 금액
                 if day_of_week_number==6 or 5:
                     if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])&(~df_data['할인금액'])&(df_data['할인전금액'].isin(no_certifiacte_people_weekend))
@@ -184,6 +191,7 @@ for file_path in file_paths:
                                 column_name = new_column_names.index(new_column_names[change_colums])
                                 specific_cells.append((index_value, column_name))
 
+                # 평일일 경우 금액
                 if day_of_week_number != 6 or 5:
                     if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])&(~df_data['할인금액'])&(df_data['할인전금액'].isin(no_certifiacte_people_week))
@@ -208,6 +216,7 @@ for file_path in file_paths:
                 
 
                 j=j+2
+                
             for k in range(7):
                     if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액'].isin(desired_money))
