@@ -206,21 +206,18 @@ for file_path in file_paths:
                             merge.append((start_site,end_site))
 
 
-                                index_value = new_index_values.index(new_index_values[j])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j+1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
+                            index_value = new_index_values.index(new_index_values[j])
+                            column_name = new_column_names.index(new_column_names[change_colums])
+                            specific_cells.append((index_value, column_name))
+                            index_value = new_index_values.index(new_index_values[j+1])
+                            column_name = new_column_names.index(new_column_names[change_colums])
+                            specific_cells.append((index_value, column_name))
 
                 
 
                 j=j+2
                 
-<<<<<<<<< Temporary merge branch 1
-            
-=========
->>>>>>>>> Temporary merge branch 2
+
             for k in range(7):
                     
                     if (df_data['시설명'] == desired_facility_list[change_colums]).any():
