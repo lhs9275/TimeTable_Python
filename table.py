@@ -7,7 +7,9 @@ from openpyxl import Workbook
 from openpyxl.worksheet.page import PageMargins
 import datetime
 
-print("파일을 선택하세여")
+
+print("https://github.com/lhs9275")
+print("파일을 선택하세dy")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
 root = Tk()
