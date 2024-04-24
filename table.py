@@ -41,7 +41,7 @@ for file_path in file_paths:
         merge = []
         merges =[]
         sign_text = "\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
-        other_contry = "\n ❨관외❩"
+        other_contry = "\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
 
 
         #조건 리스트
@@ -515,7 +515,7 @@ for file_path in file_paths:
         merge = []
         merges =[]
         sign_text = "\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
-        other_contry = "\n ❨관외❩"
+        other_contry = "\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
 
         #조건 리스트
         desired_reservation_status_list = ['결제가능', '상담대기', '예약완료']
