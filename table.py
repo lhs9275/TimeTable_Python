@@ -9,7 +9,7 @@ import datetime
 
 
 print("https://github.com/lhs9275")
-print("파일을 선택하세dy")
+print("파일을 선택하세요")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
 root = Tk()
