@@ -58,7 +58,7 @@ for file_path in file_paths:
         
         # 미인증 안성시민 판별
         no_certifiacte_people_week = [10000,13000,20000,26000]
-        no_certifiacte_people_weekend = [13000, 18000,26000, 36000]
+        no_certifiacte_people_weekend = [13000, 18000,26000,36000]
         
         # 새로운 엑셀 파일을 생성
         df_sch = pd.DataFrame(index=new_index_values, columns=new_column_names)
