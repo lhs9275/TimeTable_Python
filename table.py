@@ -41,7 +41,7 @@ for file_path in file_paths:
         merge = []
         merges =[]
         sign_text = "\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
-        other_contry = "❨관외❩\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
+        other_contry = "❨관외❩(관외)\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
 
 
         #조건 리스트
