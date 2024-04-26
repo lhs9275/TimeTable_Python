@@ -41,7 +41,7 @@ for file_path in file_paths:
         merge = []
         merges =[]
         sign_text = "\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
-        other_contry = "\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
+        other_contry = " (관외)\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
 
 
         #조건 리스트
@@ -196,7 +196,7 @@ for file_path in file_paths:
                 if day_of_week_number != 6 or 5:
                    
                     if (df_data['시설명'] == desired_facility_list[change_colums]).any():
-                        condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)&(~df_data['할인금액']==0)&(df_data['할인전금액'].isin(no_certifiacte_people_week))
+                        condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)&(~df_data['할인금액']==0)&(df_data['결제금액'].isin(no_certifiacte_people_week))
                         if condition.any():
                             reserved_member = condition[condition].index[0]
                             combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}"# 엑셀에 쓰여질 문구
