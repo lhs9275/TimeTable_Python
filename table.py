@@ -255,7 +255,7 @@ for file_path in file_paths:
 
 
                     if (df_data['시설명'] == desired_facility_list[change_colums]).any():
-                        condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(abs(df_data['결제금액']-df_data['추가금액'])==6000)
+                        condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(abs(df_data['할인전금액']-df_data['추가금액'])==6000)
                         if condition.any():
                             # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
                             reserved_member = condition[condition].index[0]
