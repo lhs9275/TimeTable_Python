@@ -27,7 +27,7 @@ for file_path in file_paths:
     df_data = pd.read_excel(file_path, index_col=0)
 
     #셀에 있는 날짜를 파이썬이 읽고 변환
-    date_string = df_data['예약일'][1].replace('.','-') 
+    date_string = df_data['예약일'][1].replace('.','-')
     date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
 
     # weekday 메서드와 변환된 data_object를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
