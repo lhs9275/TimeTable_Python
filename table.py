@@ -113,7 +113,7 @@ for file_path in file_paths:
                         specific_cells.append((index_value, column_name))        
                         
 
-                #라이트 자동 추가    새로운 로직 필요      
+                #라이트 자동 추가   
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                     condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'].isin(desired_money))&(df_data['할인전금액'] - (df_data['할인금액'] * 5 / 4) == 3000)
                                         
@@ -221,7 +221,7 @@ for file_path in file_paths:
                 
 
             for k in range(7):
-                    
+                    #라이트 수동추가 
                     if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액'].isin(desired_money))
                         
@@ -253,7 +253,7 @@ for file_path in file_paths:
                             
 
 
-
+                    #관외 라이트 추가
                     if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(abs(df_data['할인전금액']-df_data['추가금액'])==6000)
                         if condition.any():
@@ -284,7 +284,7 @@ for file_path in file_paths:
                             specific_cells.append((index_value, column_name))
 
 
-
+                    #일반 라이트 자동추가
                     if(df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'].isin(desired_money))&(df_data['할인전금액'] - (df_data['할인금액'] * 5 /4 ) == 6000)
 
@@ -314,7 +314,8 @@ for file_path in file_paths:
                             index_value = new_index_values.index(new_index_values[j_1+3])
                             column_name = new_column_names.index(new_column_names[change_colums])
                             specific_cells.append((index_value, column_name))
-                            
+
+                      # 일반 이용     
                     if(df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)    
 
@@ -328,8 +329,9 @@ for file_path in file_paths:
                             start_site = new_index_values.index(new_index_values[j_1])
                             end_site = new_column_names.index(new_column_names[change_colums])
                             merges.append((start_site,end_site))
+
                     
-                   
+                    #관외 일반이용
                     if(df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'].isin(desired_money_zero))    
 
@@ -343,8 +345,8 @@ for file_path in file_paths:
                             start_site = new_index_values.index(new_index_values[j_1])
                             end_site = new_column_names.index(new_column_names[change_colums])
                             merges.append((start_site,end_site))
-
-
+            
+                    #미시민인증 주말
                     if day_of_week_number == 6 or day_of_week_number == 5:
                        
                         if (df_data['시설명'] == desired_facility_list[change_colums]).any():
@@ -375,7 +377,7 @@ for file_path in file_paths:
                                 column_name = new_column_names.index(new_column_names[change_colums])
                                 specific_cells.append((index_value, column_name))
                                     
-
+                    #미시민인증 평일
                     if day_of_week_number != 6 and day_of_week_number != 5:
                         
                         if (df_data['시설명'] == desired_facility_list[change_colums]).any():
