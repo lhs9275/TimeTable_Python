@@ -9,7 +9,7 @@ import datetime
 
 
 print("2024.05.14일 픽스")
-print("파일 선택 ")
+print("파일 선택 ?????")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
 root = Tk()
