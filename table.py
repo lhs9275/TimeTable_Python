@@ -8,7 +8,7 @@ from openpyxl.worksheet.page import PageMargins
 import datetime
 
 
-print("2024.04.30일 픽스")
+print("2024.05.14일 픽스")
 print("파일을 선택하세요")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
