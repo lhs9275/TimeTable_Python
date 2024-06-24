@@ -45,7 +45,8 @@ for file_path in file_paths:
 
 
         #조건 리스트
-        desired_reservation_status_list = ['결제가능', '상담대기', '예약완료']
+        desired_reservation_status_list = ['결제가능', '상담대기', '예약완료', '현장결제']
+        desired_reservation_notpaid = ['현장결제']
         desired_facility_list= ['안성맞춤테니스구장(테니스구장(9코트))','안성맞춤테니스구장(테니스구장(10코트))','안성맞춤테니스구장(테니스구장(11코트))','안성맞춤테니스구장(테니스구장(12코트))']
         desired_reservation_time_list = ['06:00~08:00', '08:00~10:00', '10:00~12:00', '12:00~14:00', '14:00~16:00', '16:00~18:00', '18:00~20:00', '20:00~22:00']
         desired_reservation_time_list_4 = ['06:00~10:00', '08:00~12:00', '10:00~14:00', '12:00~16:00', '14:00~18:00', '16:00~20:00', '18:00~22:00']
@@ -67,6 +68,13 @@ for file_path in file_paths:
         for change_colums in range(4):
             j=0
             j_1=0
+            #현장결제시 추가 <테스트 필요>
+            if (df_data['시설명'] == desired_facility_list[change_colums]).any():
+                    condition = (df_data['예약상태'] == desired_reservation_notpaid[change_colums])
+
+                    if condition.any():
+                        sign_text = "(현장결제)\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
+
             for i in range (8): # desired_reservation_time_list 속의 value 값의 수
                 # 라이트 수동 추가
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
