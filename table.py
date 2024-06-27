@@ -8,8 +8,8 @@ from openpyxl.worksheet.page import PageMargins
 import datetime
 
 
-print("2024.05.14일 픽스")
-print("파일 선택 ?????")
+print("2024.6.27일 버전")
+print("파일 선택")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
 root = Tk()
@@ -40,7 +40,7 @@ for file_path in file_paths:
         specific_cells = []
         merge = []
         merges =[]
-        notpaidsign_text = "(현장결제)\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
+        notpaidsign_text = "❨현장결제❩\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
         sign_text = "\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
         other_contry = "❨관외❩\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
 
@@ -85,6 +85,7 @@ for file_path in file_paths:
                         start_site = new_index_values.index(new_index_values[j])
                         end_site = new_column_names.index(new_column_names[change_colums])
                         merge.append((start_site,end_site))
+
 
                 # 라이트 수동 추가
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
