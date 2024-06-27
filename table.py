@@ -40,12 +40,13 @@ for file_path in file_paths:
         specific_cells = []
         merge = []
         merges =[]
+        notpaidsign_text = "(현장결제)\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
         sign_text = "\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
         other_contry = "❨관외❩\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
 
 
         #조건 리스트
-        desired_reservation_status_list = ['결제가능', '상담대기', '예약완료', '현장결제']
+        desired_reservation_status_list = ['결제가능', '상담대기', '예약완료']
         desired_reservation_notpaid = ['현장결제']
         desired_facility_list= ['안성맞춤테니스구장(테니스구장(9코트))','안성맞춤테니스구장(테니스구장(10코트))','안성맞춤테니스구장(테니스구장(11코트))','안성맞춤테니스구장(테니스구장(12코트))']
         desired_reservation_time_list = ['06:00~08:00', '08:00~10:00', '10:00~12:00', '12:00~14:00', '14:00~16:00', '16:00~18:00', '18:00~20:00', '20:00~22:00']
@@ -68,14 +69,23 @@ for file_path in file_paths:
         for change_colums in range(4):
             j=0
             j_1=0
-            #현장결제시 추가 <테스트 필요>
-            if (df_data['시설명'] == desired_facility_list[change_colums]).any():
-                    condition = (df_data['예약상태'] == desired_reservation_notpaid[change_colums])
-
-                    if condition.any():
-                        sign_text = "(현장결제)\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
+        
 
             for i in range (8): # desired_reservation_time_list 속의 value 값의 수
+
+                #현장결제
+                if (df_data['시설명'] == desired_facility_list[change_colums]).any():
+                   condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_notpaid))
+                   
+                   if condition.any():
+                        reserved_member = condition[condition].index[0]
+                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notpaidsign_text}" # 엑셀에 쓰여질 문구
+                        df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
+
+                        start_site = new_index_values.index(new_index_values[j])
+                        end_site = new_column_names.index(new_column_names[change_colums])
+                        merge.append((start_site,end_site))
+
                 # 라이트 수동 추가
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                     condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액'].isin(desired_money))
@@ -229,8 +239,22 @@ for file_path in file_paths:
                 
 
             for k in range(7):
+                    #현장결제
+                if (df_data['시설명'] == desired_facility_list[change_colums]).any():
+                   condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_notpaid))
+                   
+                   if condition.any():
+                        reserved_member = condition[condition].index[0]
+                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notpaidsign_text}" # 엑셀에 쓰여질 문구
+                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
+
+                        start_site = new_index_values.index(new_index_values[j_1])
+                        end_site = new_column_names.index(new_column_names[change_colums])
+                        merge.append((start_site,end_site))
+
+
                     #라이트 수동추가 
-                    if (df_data['시설명'] == desired_facility_list[change_colums]).any():
+                if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액'].isin(desired_money))
                         
                         if condition.any():
@@ -262,7 +286,7 @@ for file_path in file_paths:
 
 
                     #관외 라이트 추가
-                    if (df_data['시설명'] == desired_facility_list[change_colums]).any():
+                if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(abs(df_data['할인전금액']-df_data['추가금액'])==6000)
                         if condition.any():
                             # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
@@ -293,7 +317,7 @@ for file_path in file_paths:
 
 
                     #일반 라이트 자동추가
-                    if(df_data['시설명'] == desired_facility_list[change_colums]).any():
+                if(df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'].isin(desired_money))&(df_data['할인전금액'] - (df_data['할인금액'] * 5 /4 ) == 6000)
 
 
@@ -324,7 +348,7 @@ for file_path in file_paths:
                             specific_cells.append((index_value, column_name))
 
                       # 일반 이용     
-                    if(df_data['시설명'] == desired_facility_list[change_colums]).any():
+                if(df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)    
 
                         if condition.any():
@@ -340,7 +364,7 @@ for file_path in file_paths:
 
                     
                     #관외 일반이용
-                    if(df_data['시설명'] == desired_facility_list[change_colums]).any():
+                if(df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'].isin(desired_money_zero))    
 
                         if condition.any():
@@ -355,7 +379,7 @@ for file_path in file_paths:
                             merges.append((start_site,end_site))
             
                     #미시민인증 주말
-                    if day_of_week_number == 6 or day_of_week_number == 5:
+                if day_of_week_number == 6 or day_of_week_number == 5:
                        
                         if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                             condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)&(df_data['할인금액']==0)&(df_data['결제금액'].isin(no_certifiacte_people_weekend))
@@ -386,7 +410,7 @@ for file_path in file_paths:
                                 specific_cells.append((index_value, column_name))
                                     
                     #미시민인증 평일
-                    if day_of_week_number != 6 and day_of_week_number != 5:
+                if day_of_week_number != 6 and day_of_week_number != 5:
                         
                         if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                             condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)&(df_data['할인금액']==0)&(df_data['결제금액'].isin(no_certifiacte_people_week))
@@ -414,7 +438,7 @@ for file_path in file_paths:
                                 index_value = new_index_values.index(new_index_values[j_1+3])
                                 column_name = new_column_names.index(new_column_names[change_colums])
                                 specific_cells.append((index_value, column_name))
-                    j_1=j_1+2
+                j_1=j_1+2
             
 
     day_of_week_number = date[day_of_week_number]
