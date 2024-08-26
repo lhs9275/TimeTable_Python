@@ -160,7 +160,7 @@ for file_path in file_paths:
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                     condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])
 
-                        if condition.any():
+                    if condition.any():
                         # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
                             reserved_member = condition[condition].index[0]
                             combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}"# 엑셀에 쓰여질 문구
@@ -290,7 +290,7 @@ for file_path in file_paths:
 
 
 
-                    if (df_data['시설명'] == desired_facility_list[change_colums]).any():
+                if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(abs(df_data['결제금액']-df_data['추가금액'])==6000)
                         if condition.any():
                             # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
@@ -351,7 +351,7 @@ for file_path in file_paths:
                             column_name = new_column_names.index(new_column_names[change_colums])
                             specific_cells.append((index_value, column_name))
                             
-                    if(df_data['시설명'] == desired_facility_list[change_colums]).any():
+                if(df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'])    
 
                         if condition.any():
@@ -382,7 +382,7 @@ for file_path in file_paths:
                             merges.append((start_site,end_site))
 
 
-                    if day_of_week_number==6 or 5:
+                if day_of_week_number==6 or 5:
                        
                         if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                             condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)&(df_data['할인금액']==0)&(df_data['결제금액'].isin(no_certifiacte_people_weekend))
@@ -413,7 +413,7 @@ for file_path in file_paths:
                                 specific_cells.append((index_value, column_name))
                                     
 
-                    if day_of_week_number != 6 or 5:
+                if day_of_week_number != 6 or 5:
                         
                         if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                             condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)&(df_data['할인금액']==0)&(df_data['결제금액'].isin(no_certifiacte_people_week))
@@ -888,7 +888,7 @@ for file_path in file_paths:
 
 
 
-                    if day_of_week_number==6 or 5:
+                if day_of_week_number==6 or 5:
                         if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                             condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)&(df_data['할인금액']==0)&(df_data['결제금액'].isin(no_certifiacte_people_weekend))
                             
@@ -918,7 +918,7 @@ for file_path in file_paths:
                                 specific_cells.append((index_value, column_name))
                                     
 
-                    if day_of_week_number != 6 or 5:
+                if day_of_week_number != 6 or 5:
                         if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                             condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)&(df_data['할인금액']==0)&(df_data['결제금액'].isin(no_certifiacte_people_week))
                             if condition.any():
