@@ -8,7 +8,7 @@ from openpyxl.worksheet.page import PageMargins
 import datetime
 
 
-print("2024.6.27일 버전")
+print("2024.8.13일 버전")
 print("파일 선택")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
