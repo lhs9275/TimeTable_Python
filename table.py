@@ -8,7 +8,7 @@ from openpyxl.worksheet.page import PageMargins
 import datetime
 
 
-print("2024.8.13일 버전")
+print("2024.9.3일 버전")
 print("파일 선택")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
@@ -18,6 +18,9 @@ root.withdraw()  # Tkinter 창을 숨김
 # 파일 선택 다이얼로그를 통해 파일 경로 획득
 file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xlsx")])
 
+with open('set.txt', 'r') as file:
+    exec(file.read())
+
 for file_path in file_paths:
 
     
@@ -25,14 +28,21 @@ for file_path in file_paths:
     date=['월요일','화요일','수요일','목요일','금요일','토요일','일요일']
     tennis_value = ['안성맞춤테니스구장(테니스구장(9코트))','안성맞춤테니스구장(테니스구장(10코트))','안성맞춤테니스구장(테니스구장(11코트))','안성맞춤테니스구장(테니스구장(12코트))']
     df_data = pd.read_excel(file_path, index_col=0)
-
+    
     #셀에 있는 날짜를 파이썬이 읽고 변환
     date_string = df_data['예약일'][1].replace('.','-')
     date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
+    holiday_date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
+
+    
 
     # weekday 메서드와 변환된 data_object를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
     day_of_week_number = date_object.weekday()
 
+    if date_string in holiday:
+         day_of_week_number == 6
+         print("good")
+         
     #셀에 있는 시설명이 테니스 벨류면 실행함    
     if df_data['시설명'].isin(tennis_value).any():
         new_column_names = ['9코트', '10코트', '11코트','12코트','기타'] # 필요한 만큼 열 이름을 변경
