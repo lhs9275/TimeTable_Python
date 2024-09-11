@@ -564,8 +564,10 @@ for file_path in file_paths:
         desired_reservation_time_list_4 = ['06:00~10:00', '08:00~12:00', '10:00~14:00', '12:00~16:00', '14:00~18:00', '16:00~20:00', '18:00~22:00']
         desired_reservation_time_list_r = ['6-8','8-10','10-12','12-14','14-16','16-18','18-20','20-22']
         desired_reservation_time_list_4_r = ['6-10', '8-12', '10-14', '12-16', '14-18', '16-20', '18-22']
-        desired_money = [4500,9000]
-        desired_money_zero = [4500,9000]
+
+        desired_money = [0,4500,9000]
+        desired_money_zero = [0,4500,9000]
+
         no_certifiacte_people_week =[8000,9500,16000,19000]
         no_certifiacte_people_weekend = [9500,12000,19000,24000]
 
@@ -581,8 +583,7 @@ for file_path in file_paths:
         for change_colums in range(8):
             j=0
             j_1=0
-        
-
+            
             for i in range (8): # desired_reservation_time_list 속의 value 값의 수
 
                 #현장결제
