@@ -555,6 +555,10 @@ for file_path in file_paths:
         notpaidsign_text = "❨현장결제❩\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
         sign_text = "\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
         other_contry = " ❨관외❩\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
+        notsign_text_short_ver = "❨미인증❩\n 사용자             ❨서명❩ \n\n관리자      ❨서명❩"
+        notpaidsign_text_short_ver = "❨현장결제❩\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
+        sign_text_short_ver = "\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
+        other_contry_short_ver = " ❨관외❩\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
 
         #조건 리스트
         desired_reservation_status_list = ['결제가능', '상담대기', '예약완료']
@@ -592,7 +596,7 @@ for file_path in file_paths:
                    
                    if condition.any():
                         reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notpaidsign_text}" # 엑셀에 쓰여질 문구
+                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notpaidsign_text_short_ver}" # 엑셀에 쓰여질 문구
                         df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
                         start_site = new_index_values.index(new_index_values[j])
@@ -606,7 +610,7 @@ for file_path in file_paths:
 
                     if condition.any():
                         reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}" # 엑셀에 쓰여질 문구
+                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text_short_ver}" # 엑셀에 쓰여질 문구
                         df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
                         start_site = new_index_values.index(new_index_values[j])
@@ -629,7 +633,7 @@ for file_path in file_paths:
                     if condition.any():
                         # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
                         reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {other_contry}"# 엑셀에 쓰여질 문구
+                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {other_contry_short_ver}"# 엑셀에 쓰여질 문구
                         df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
                         start_site = new_index_values.index(new_index_values[j])
@@ -652,7 +656,7 @@ for file_path in file_paths:
                     if condition.any():
                         # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
                         reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}" # 엑셀에 쓰여질 문구
+                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text_short_ver}" # 엑셀에 쓰여질 문구
                         df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
 
@@ -676,7 +680,7 @@ for file_path in file_paths:
                         if condition.any():
                         # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
                             reserved_member = condition[condition].index[0]
-                            combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}"# 엑셀에 쓰여질 문구
+                            combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text_short_ver}"# 엑셀에 쓰여질 문구
                             df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
 
@@ -694,7 +698,7 @@ for file_path in file_paths:
                     if condition.any():
                         # 조건을 만족하면 해당 행의 인덱스인 '예약회원'을 출력
                         reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {other_contry}"# 엑셀에 쓰여질 문구
+                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {other_contry_short_ver}"# 엑셀에 쓰여질 문구
                         df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
 
@@ -712,7 +716,7 @@ for file_path in file_paths:
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']== 0)&(df_data['할인금액']== 0 )&(df_data['결제금액'].isin(no_certifiacte_people_weekend))
                         if condition.any():
                                 reserved_member = condition[condition].index[0]
-                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notsign_text}"# 엑셀에 쓰여질 문구
+                                combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notsign_text_short_ver}"# 엑셀에 쓰여질 문구
                                 df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
                                 start_site = new_index_values.index(new_index_values[j])
@@ -734,7 +738,7 @@ for file_path in file_paths:
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액']==0)&(df_data['할인금액']==0)&(df_data['결제금액'].isin(no_certifiacte_people_week))
                         if condition.any():
                             reserved_member = condition[condition].index[0]
-                            combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notsign_text}"# 엑셀에 쓰여질 문구
+                            combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notsign_text_short_ver}"# 엑셀에 쓰여질 문구
                             df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
 
