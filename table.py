@@ -251,12 +251,12 @@ for file_path in file_paths:
                    
                    if condition.any():
                         reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notpaidsign_text}" # 엑셀에 쓰여질 문구
-                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
+                        combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {notpaidsign_text}" # 엑셀에 쓰여질 문구
+                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1]],new_index_values[j_1+2],new_index_values[j_1+3],new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
                         start_site = new_index_values.index(new_index_values[j_1])
                         end_site = new_column_names.index(new_column_names[change_colums])
-                        merge.append((start_site,end_site))
+                        merges.append((start_site,end_site))
 
 
                     #라이트 수동추가 
@@ -540,7 +540,7 @@ for file_path in file_paths:
             print("생성 완료")
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    #  소프트 테니스
+    #  소프트테니스
 
     if df_data['시설명'].isin(soft_tennis_value).any(): 
 
@@ -555,10 +555,12 @@ for file_path in file_paths:
         notpaidsign_text = "❨현장결제❩\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
         sign_text = "\n\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
         other_contry = " ❨관외❩\n\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
-        notsign_text_short_ver = "❨미인증❩\n 사용자             ❨서명❩ \n\n관리자      ❨서명❩"
+
+
+        notsign_text_short_ver = "❨미인증❩\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
         notpaidsign_text_short_ver = "❨현장결제❩\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
-        sign_text_short_ver = "\n 사용자      ❨서명❩ \n\n관리자      ❨서명❩"
-        other_contry_short_ver = " ❨관외❩\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
+        sign_text_short_ver = "\n사용자      ❨서명❩ \n\n관리자      ❨서명❩"
+        other_contry_short_ver = "❨관외❩\n 관외사용자    ❨서명❩ \n\n관리자      ❨서명❩"
 
         #조건 리스트
         desired_reservation_status_list = ['결제가능', '상담대기', '예약완료']
@@ -569,7 +571,7 @@ for file_path in file_paths:
         desired_reservation_time_list_r = ['6-8','8-10','10-12','12-14','14-16','16-18','18-20','20-22']
         desired_reservation_time_list_4_r = ['6-10', '8-12', '10-14', '12-16', '14-18', '16-20', '18-22']
 
-        desired_money = [0,4500,9000]
+        desired_money = [4500,9000]
         desired_money_zero = [0,4500,9000]
 
         no_certifiacte_people_week =[8000,9500,16000,19000]
@@ -601,7 +603,7 @@ for file_path in file_paths:
 
                         start_site = new_index_values.index(new_index_values[j])
                         end_site = new_column_names.index(new_column_names[change_colums])
-                        merge.append((start_site,end_site))
+                        merge.append((start_site,end_site))##
 
 
                 # 라이트 수동 추가
@@ -766,13 +768,15 @@ for file_path in file_paths:
                    
                    if condition.any():
                         reserved_member = condition[condition].index[0]
-                        combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notpaidsign_text}" # 엑셀에 쓰여질 문구
-                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
+                        combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {notpaidsign_text}" # 엑셀에 쓰여질 문구
+                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
                         start_site = new_index_values.index(new_index_values[j_1])
                         end_site = new_column_names.index(new_column_names[change_colums])
-                        merge.append((start_site,end_site))
+                        merges.append((start_site,end_site))
+                        
 
+                                
 
                     #라이트 수동추가 
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
