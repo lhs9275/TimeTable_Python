@@ -8,7 +8,7 @@ from openpyxl.worksheet.page import PageMargins
 import datetime
 
 
-print("2024.9.11일 버전")
+print("2024.9.20일 버전")
 print("파일 선택")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
@@ -252,7 +252,7 @@ for file_path in file_paths:
                    if condition.any():
                         reserved_member = condition[condition].index[0]
                         combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {notpaidsign_text}" # 엑셀에 쓰여질 문구
-                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1]],new_index_values[j_1+2],new_index_values[j_1+3],new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
+                        df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]],new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
                         start_site = new_index_values.index(new_index_values[j_1])
                         end_site = new_column_names.index(new_column_names[change_colums])
