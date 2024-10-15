@@ -7,6 +7,7 @@ from openpyxl import Workbook
 from openpyxl.worksheet.page import PageMargins
 import datetime
 
+#현장결제 버그 수정됨
 
 print("2024.10.15일 버전")
 print("파일 선택")
