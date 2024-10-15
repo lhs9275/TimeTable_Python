@@ -10,7 +10,7 @@ import datetime
 #현장결제 버그 수정됨
 
 print("2024.10.15일 버전")
-print("파일 선택")
+print("하계 버전")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
 root = Tk()
