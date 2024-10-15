@@ -6,7 +6,9 @@ from tkinter.filedialog import askopenfilenames
 from openpyxl import Workbook
 from openpyxl.worksheet.page import PageMargins
 import datetime
-#미결제한 사람에 대한 표시를 업데이트중입니다 .
+
+# 동계버전 업데이트 해야함
+
 
 print("2024.10.15일 버전")
 print("파일 선택")
