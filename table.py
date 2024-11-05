@@ -39,7 +39,8 @@ def Four_cell_merge(j_1):
     start_site = new_index_values.index(new_index_values[j_1])
     end_site = new_column_names.index(new_column_names[change_colums])
     merges.append((start_site,end_site))     
-     
+
+
 
 #현장결제 버그 수정됨
 
@@ -520,8 +521,7 @@ for file_path in file_paths:
                         df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
                         Two_cell_merge(j)
-
-
+                        
                         #셀 색칠
                         Two_cell_fill(j)
 
@@ -571,9 +571,6 @@ for file_path in file_paths:
 
                             Two_cell_merge(j)
                 
-
-
-
                 #일반 관외 
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                     condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'].isin(desired_money_zero))
@@ -583,7 +580,6 @@ for file_path in file_paths:
                         reserved_member = condition[condition].index[0]
                         combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {other_contry_short_ver}"# 엑셀에 쓰여질 문구
                         df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
-
 
                         Two_cell_merge(j)
 
@@ -621,8 +617,6 @@ for file_path in file_paths:
 
                             Two_cell_fill(j)
 
-                
-
                 j=j+2
                 
 
@@ -638,9 +632,6 @@ for file_path in file_paths:
 
                         Four_cell_merge(j_1)
                         
-
-                                
-
                     #라이트 수동추가 
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(df_data['추가금액'].isin(desired_money))
@@ -657,8 +648,6 @@ for file_path in file_paths:
                             #셀 색칠
                             Four_cell_fill(j_1)
                             
-
-
                     #관외 라이트 추가
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(abs(df_data['할인전금액']-df_data['추가금액'])==9000)
@@ -669,8 +658,6 @@ for file_path in file_paths:
                             df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
                             
                             Four_cell_merge(j_1)
-                            
-                            
                             #셀 색칠
                             Four_cell_fill(j_1)
 
@@ -687,7 +674,6 @@ for file_path in file_paths:
                             
                             Four_cell_merge(j_1)
                             
-
                             #셀 색칠
                             Four_cell_fill(j_1)
 
@@ -752,9 +738,6 @@ for file_path in file_paths:
                                 Four_cell_fill(j_1)
                 j_1=j_1+2
         
-
-            
-
         # 날짜 문자열을 datetime 객체로 변환
         date_string = df_data['예약일'][1].replace('.','-') 
         date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
