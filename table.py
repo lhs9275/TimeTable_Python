@@ -7,6 +7,33 @@ from openpyxl import Workbook
 from openpyxl.worksheet.page import PageMargins
 import datetime
 
+
+
+def Two_cell_fill(j):
+    index_value = new_index_values.index(new_index_values[j])
+    column_name = new_column_names.index(new_column_names[change_colums])
+    specific_cells.append((index_value, column_name))
+    index_value = new_index_values.index(new_index_values[j+1])
+    column_name = new_column_names.index(new_column_names[change_colums])
+    specific_cells.append((index_value, column_name))
+
+
+def Four_cell_fill(j_1):
+    index_value = new_index_values.index(new_index_values[j_1])
+    column_name = new_column_names.index(new_column_names[change_colums])
+    specific_cells.append((index_value,column_name))
+    index_value = new_index_values.index(new_index_values[j_1+1])
+    column_name = new_column_names.index(new_column_names[change_colums])
+    specific_cells.append((index_value, column_name))
+    index_value = new_index_values.index(new_index_values[j_1+2])
+    column_name = new_column_names.index(new_column_names[change_colums])
+    specific_cells.append((index_value, column_name))
+    index_value = new_index_values.index(new_index_values[j_1+3])
+    column_name = new_column_names.index(new_column_names[change_colums])
+    specific_cells.append((index_value, column_name))
+     
+     
+
 #현장결제 버그 수정됨
 
 print("2024.10.15일 버전")
@@ -103,14 +130,10 @@ for file_path in file_paths:
                         end_site = new_column_names.index(new_column_names[change_colums])
                         merge.append((start_site,end_site))
 
+                        Two_cell_fill(j)
 
-                        #셀 색칠
-                        index_value = new_index_values.index(new_index_values[j])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j+1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
+
+                        
 
                 #관외 라이트
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
@@ -126,13 +149,7 @@ for file_path in file_paths:
                         end_site = new_column_names.index(new_column_names[change_colums])
                         merge.append((start_site,end_site))
 
-                        #셀 색칠
-                        index_value = new_index_values.index(new_index_values[j])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j+1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))        
+                        Two_cell_fill(j)      
                         
 
                 #라이트 자동 추가   
@@ -151,12 +168,7 @@ for file_path in file_paths:
                         merge.append((start_site,end_site))
 
                         #셀 색칠
-                        index_value = new_index_values.index(new_index_values[j])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j+1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
+                        Two_cell_fill(j)
                 
                 #일반 예약
 
@@ -210,12 +222,7 @@ for file_path in file_paths:
                                 merge.append((start_site,end_site))
 
                               #셀 색칠
-                                index_value = new_index_values.index(new_index_values[j])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j+1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
+                                Two_cell_fill(j)
 
                 # 평일일 경우 금액
                 if day_of_week_number != 6 and day_of_week_number != 5:
@@ -233,12 +240,7 @@ for file_path in file_paths:
                             merge.append((start_site,end_site))
 
 
-                            index_value = new_index_values.index(new_index_values[j])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j+1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
+                            Two_cell_fill(j)
 
                 
 
@@ -277,18 +279,7 @@ for file_path in file_paths:
                             
                             
                             #셀 색칠
-                            index_value = new_index_values.index(new_index_values[j_1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value,column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+2])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+3])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
+                            Four_cell_fill(j_1)
                             
 
 
@@ -309,18 +300,7 @@ for file_path in file_paths:
                             
                             
                             #셀 색칠
-                            index_value = new_index_values.index(new_index_values[j_1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value,column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+2])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+3])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
+                            Four_cell_fill(j_1)
 
 
                     #일반 라이트 자동추가
@@ -341,18 +321,7 @@ for file_path in file_paths:
                             
 
                             #셀 색칠
-                            index_value = new_index_values.index(new_index_values[j_1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value,column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+2])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+3])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
+                            Four_cell_fill(j_1)
 
                       # 일반 이용     
                 if(df_data['시설명'] == desired_facility_list[change_colums]).any():
@@ -403,18 +372,7 @@ for file_path in file_paths:
                                     
                                     
                                 #셀 색칠
-                                index_value = new_index_values.index(new_index_values[j_1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value,column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+2])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+3])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
+                                Four_cell_fill(j_1)
                                     
                     #미시민인증 평일
                 if day_of_week_number != 6 and day_of_week_number != 5:
@@ -433,18 +391,7 @@ for file_path in file_paths:
                                 
                                     
                                     #셀 색칠
-                                index_value = new_index_values.index(new_index_values[j_1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value,column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+2])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+3])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
+                                Four_cell_fill(j_1)
                 j_1=j_1+2
             
 
@@ -604,7 +551,7 @@ for file_path in file_paths:
 
                         start_site = new_index_values.index(new_index_values[j])
                         end_site = new_column_names.index(new_column_names[change_colums])
-                        merge.append((start_site,end_site))##
+                        merge.append((start_site,end_site))
 
 
                 # 라이트 수동 추가
@@ -622,12 +569,7 @@ for file_path in file_paths:
 
 
                         #셀 색칠
-                        index_value = new_index_values.index(new_index_values[j])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j+1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
+                        Two_cell_fill(j)
 
                 #관외 라이트
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
@@ -644,12 +586,7 @@ for file_path in file_paths:
                         merge.append((start_site,end_site))
 
                         #셀 색칠
-                        index_value = new_index_values.index(new_index_values[j])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j+1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))        
+                        Two_cell_fill(j)       
                         
 
                 #라이트 자동 추가   
@@ -668,12 +605,7 @@ for file_path in file_paths:
                         merge.append((start_site,end_site))
 
                         #셀 색칠
-                        index_value = new_index_values.index(new_index_values[j])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
-                        index_value = new_index_values.index(new_index_values[j+1])
-                        column_name = new_column_names.index(new_column_names[change_colums])
-                        specific_cells.append((index_value, column_name))
+                        Two_cell_fill(j)
                 
                 #일반 예약
 
@@ -727,12 +659,7 @@ for file_path in file_paths:
                                 merge.append((start_site,end_site))
 
                               #셀 색칠
-                                index_value = new_index_values.index(new_index_values[j])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j+1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
+                                Two_cell_fill(j)
 
                 # 평일일 경우 금액
                 if day_of_week_number != 6 and day_of_week_number != 5:
@@ -750,12 +677,7 @@ for file_path in file_paths:
                             merge.append((start_site,end_site))
 
 
-                            index_value = new_index_values.index(new_index_values[j])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j+1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
+                            Two_cell_fill(j)
 
                 
 
@@ -796,18 +718,7 @@ for file_path in file_paths:
                             
                             
                             #셀 색칠
-                            index_value = new_index_values.index(new_index_values[j_1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value,column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+2])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+3])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
+                            Four_cell_fill(j_1)
                             
 
 
@@ -828,18 +739,7 @@ for file_path in file_paths:
                             
                             
                             #셀 색칠
-                            index_value = new_index_values.index(new_index_values[j_1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value,column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+2])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+3])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
+                            Four_cell_fill(j_1)
 
 
                     #일반 라이트 자동추가
@@ -860,18 +760,7 @@ for file_path in file_paths:
                             
 
                             #셀 색칠
-                            index_value = new_index_values.index(new_index_values[j_1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value,column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+1])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+2])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
-                            index_value = new_index_values.index(new_index_values[j_1+3])
-                            column_name = new_column_names.index(new_column_names[change_colums])
-                            specific_cells.append((index_value, column_name))
+                            Four_cell_fill(j_1)
 
                       # 일반 이용     
                 if(df_data['시설명'] == desired_facility_list[change_colums]).any():
@@ -903,6 +792,7 @@ for file_path in file_paths:
                             start_site = new_index_values.index(new_index_values[j_1])
                             end_site = new_column_names.index(new_column_names[change_colums])
                             merges.append((start_site,end_site))
+
             
                     #미시민인증 주말
                 if day_of_week_number == 6 or day_of_week_number == 5:
@@ -922,18 +812,7 @@ for file_path in file_paths:
                                     
                                     
                                 #셀 색칠
-                                index_value = new_index_values.index(new_index_values[j_1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value,column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+2])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+3])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
+                                Four_cell_fill(j_1)
                                     
                     #미시민인증 평일
                 if day_of_week_number != 6 and day_of_week_number != 5:
@@ -952,18 +831,7 @@ for file_path in file_paths:
                                 
                                     
                                     #셀 색칠
-                                index_value = new_index_values.index(new_index_values[j_1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value,column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+1])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+2])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
-                                index_value = new_index_values.index(new_index_values[j_1+3])
-                                column_name = new_column_names.index(new_column_names[change_colums])
-                                specific_cells.append((index_value, column_name))
+                                Four_cell_fill(j_1)
                 j_1=j_1+2
         
 
@@ -1062,7 +930,3 @@ for file_path in file_paths:
             worksheet.page_margins = PageMargins(top=0, bottom=0, left=0, right=0)
 
             print("엑셀 파일이 생성되었습니다.")
-
-
-
-
