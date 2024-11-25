@@ -841,3 +841,5 @@ for file_path in file_paths:
             worksheet.page_margins = PageMargins(top=0, bottom=0, left=0, right=0)
 
             print("엑셀 파일이 생성되었습니다.")
+
+exit()
