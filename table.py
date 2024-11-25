@@ -8,6 +8,37 @@ from openpyxl.worksheet.page import PageMargins
 import datetime
 
 
+root = Tk()
+root.withdraw()  # Tkinter 창을 숨김
+
+c_file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xls")])
+
+
+def convert_html_files_to_excel():
+    # 현재 디렉터리에서 .xls 확장자를 가진 파일 목록 찾기
+    
+    # 파일 목록 출력
+
+    for c_file in c_file_paths:
+        try:
+            # HTML 파일을 pandas로 읽기
+            df = pd.read_html(c_file, flavor='lxml')[0]  # 첫 번째 테이블 읽기
+            
+            # 파일명에서 확장자를 제거하고 .xlsx 확장자 추가
+            new_file = c_file.replace('.xls', '_converted.xlsx')
+            
+            # Excel 파일로 저장
+            df.to_excel(new_file, index=False, engine='openpyxl')
+            
+            print(f"{c_file} -> {new_file} 변환 완료")
+        except Exception as e:
+            print(f"{c_file} 변환 실패: {e}")
+
+if __name__ == "__main__":
+    convert_html_files_to_excel()
+
+
+
 def Two_cell_merge(j):
     start_site = new_index_values.index(new_index_values[j])
     end_site = new_column_names.index(new_column_names[change_colums])
@@ -40,11 +71,9 @@ def Four_cell_merge(j_1):
     end_site = new_column_names.index(new_column_names[change_colums])
     merges.append((start_site,end_site))     
 
-
-
 #현장결제 버그 수정됨
 
-print("2024.10.15일 버전")
+print("2024.11.25일 버전")
 print("하계 버전")
 
 # Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
@@ -441,8 +470,6 @@ for file_path in file_paths:
             worksheet.page_setup.fitToPage = True #한페이지안에 넣기
             worksheet.page_setup.fitToHeight = 1 #배율 
             worksheet.page_margins = PageMargins(top=0, bottom=0, left=0, right=0) #프린트 여백
-
-
             
             print("생성 완료")
 
@@ -583,7 +610,6 @@ for file_path in file_paths:
 
                         Two_cell_merge(j)
 
-
     # 미인증 시민 라이트
 
                 # 주말일 경우 금액
@@ -611,15 +637,12 @@ for file_path in file_paths:
                             combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {notsign_text_short_ver}"# 엑셀에 쓰여질 문구
                             df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
 
-
                             Two_cell_merge(j)
-
 
                             Two_cell_fill(j)
 
                 j=j+2
                 
-
             for k in range(7):
                     #현장결제
                 if (df_data['시설명'] == desired_facility_list[change_colums]).any():
@@ -642,9 +665,7 @@ for file_path in file_paths:
                             combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {sign_text}"# 엑셀에 쓰여질 문구
                             df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
                             
-                            
-                            Four_cell_merge(j_1)
-                            
+                            Four_cell_merge(j_1)                            
                             #셀 색칠
                             Four_cell_fill(j_1)
                             
@@ -687,10 +708,8 @@ for file_path in file_paths:
                             combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {sign_text}"# 엑셀에 쓰여질 문구
                             df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value     #엑셀에서 사용할 셀의 위치
                             
-                            
                             Four_cell_merge(j_1)
 
-                    
                     #관외 일반이용
                 if(df_data['시설명'] == desired_facility_list[change_colums]).any():
                         condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list_4[k])& (df_data['예약상태'].isin(desired_reservation_status_list))&(~df_data['추가금액'].isin(desired_money_zero))    
@@ -701,9 +720,7 @@ for file_path in file_paths:
                             combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]}{other_contry}"# 엑셀에 쓰여질 문구
                             df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치    
                             
-                            
                             Four_cell_merge(j_1)
-
             
                     #미시민인증 주말
                 if day_of_week_number == 6 or day_of_week_number == 5:
@@ -715,7 +732,7 @@ for file_path in file_paths:
                                 reserved_member = condition[condition].index[0]
                                 combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {notsign_text}"# 엑셀에 쓰여질 문구
                                 df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
-                                         
+                                
                                 Four_cell_merge(j_1)
                                     
                                 #셀 색칠
@@ -731,7 +748,6 @@ for file_path in file_paths:
                                 combined_value = f"{reserved_member} {desired_reservation_time_list_4_r[k]} {notsign_text}"# 엑셀에 쓰여질 문구
                                 df_sch.loc[[new_index_values[j_1],new_index_values[j_1+1],new_index_values[j_1+2],new_index_values[j_1+3]] , new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
                                     
-                                    
                                 Four_cell_merge(j_1)
                                 
                                     #셀 색칠
@@ -746,7 +762,6 @@ for file_path in file_paths:
         day_of_week_number = date_object.weekday()
 
         day_of_week_number = date[day_of_week_number]
-
 
         def remove_parentheses(value):
             return re.sub(r'\([^)]*\)', '', str(value))
@@ -768,7 +783,6 @@ for file_path in file_paths:
                 row, col = position
                 cell = worksheet.cell(row=row + 3, column=col + 2)  # 엑셀은 1부터 시작하므로 +1
                 cell.fill = red_fill
-
 
             #병합하기이이이이이이
             
