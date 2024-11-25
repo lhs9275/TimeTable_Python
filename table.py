@@ -11,28 +11,27 @@ import datetime
 root = Tk()
 root.withdraw()  # Tkinter 창을 숨김
 
-c_file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xls")])
-
+convert_file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xls")])
 
 def convert_html_files_to_excel():
     # 현재 디렉터리에서 .xls 확장자를 가진 파일 목록 찾기
     
     # 파일 목록 출력
 
-    for c_file in c_file_paths:
+    for convert_file in convert_file_paths:
         try:
             # HTML 파일을 pandas로 읽기
-            df = pd.read_html(c_file, flavor='lxml')[0]  # 첫 번째 테이블 읽기
+            df = pd.read_html(convert_file, flavor='lxml')[0]  # 첫 번째 테이블 읽기
             
             # 파일명에서 확장자를 제거하고 .xlsx 확장자 추가
-            new_file = c_file.replace('.xls', '_converted.xlsx')
+            new_file = convert_file.replace('.xls', '_converted.xlsx')
             
             # Excel 파일로 저장
             df.to_excel(new_file, index=False, engine='openpyxl')
             
-            print(f"{c_file} -> {new_file} 변환 완료")
+            print(f"{convert_file} -> {new_file} 변환 완료")
         except Exception as e:
-            print(f"{c_file} 변환 실패: {e}")
+            print(f"{convert_file} 변환 실패: {e}")
 
 if __name__ == "__main__":
     convert_html_files_to_excel()
@@ -164,8 +163,6 @@ for file_path in file_paths:
                         Two_cell_merge (j)
 
                         Two_cell_fill(j)
-
-
                         
 
                 #관외 라이트
