@@ -10,11 +10,10 @@ import datetime
 
 root = Tk()
 root.withdraw()  # Tkinter 창을 숨김
-
+file_paths = []
 convert_file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xls")])
 
     # 현재 디렉터리에서 .xls 확장자를 가진 파일 목록 찾기
-    
     # 파일 목록 출력
 
 for convert_file in convert_file_paths:
@@ -23,12 +22,15 @@ for convert_file in convert_file_paths:
         df = pd.read_html(convert_file, flavor='lxml')[0]  # 첫 번째 테이블 읽기
         
         # 파일명에서 확장자를 제거하고 .xlsx 확장자 추가
-        new_file = convert_file.replace('.xls', '_converted.xlsx')
+        new_file = convert_file.replace('.xls', 'covert.xlsx')
         
         # Excel 파일로 저장
         df.to_excel(new_file, index=False, engine='openpyxl')
         
         print(f"{convert_file} -> {new_file} 변환 완료")
+
+        file_paths.append(new_file)
+
     except Exception as e:
         print(f"{convert_file} 변환 실패: {e}")
         
@@ -71,13 +73,9 @@ def Four_cell_merge(j_1):
 
 print("2024.11.25일 버전")
 print("하계 버전")
-
-# Tkinter를 초기화하여 파일 선택 다이얼로그를 표시
-root = Tk()
-root.withdraw()  # Tkinter 창을 숨김
+ # Tkinter 창을 숨김
 
 # 파일 선택 다이얼로그를 통해 파일 경로 획득
-file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xlsx")])
 
 for file_path in file_paths:
 
