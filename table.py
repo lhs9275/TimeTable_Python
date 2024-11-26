@@ -7,10 +7,15 @@ from openpyxl import Workbook
 from openpyxl.worksheet.page import PageMargins
 import datetime
 
-
+# Tkinter 창을 숨김
+# 파일 선택 다이얼로그를 통해 파일 경로 획득
 root = Tk()
 root.withdraw()  # Tkinter 창을 숨김
+
+# convert된 파일 주소가 들어갈 list
 file_paths = []
+
+#tuple 
 convert_file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xls")])
 
     # 현재 디렉터리에서 .xls 확장자를 가진 파일 목록 찾기
@@ -73,9 +78,6 @@ def Four_cell_merge(j_1):
 
 print("2024.11.26일 버전")
 print("하계 버전")
- # Tkinter 창을 숨김
-
-# 파일 선택 다이얼로그를 통해 파일 경로 획득
 
 for file_path in file_paths:
 
