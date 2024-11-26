@@ -13,31 +13,28 @@ root.withdraw()  # Tkinter 창을 숨김
 
 convert_file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xls")])
 
-def convert_html_files_to_excel():
     # 현재 디렉터리에서 .xls 확장자를 가진 파일 목록 찾기
     
     # 파일 목록 출력
 
-    for convert_file in convert_file_paths:
-        try:
-            # HTML 파일을 pandas로 읽기
-            df = pd.read_html(convert_file, flavor='lxml')[0]  # 첫 번째 테이블 읽기
-            
-            # 파일명에서 확장자를 제거하고 .xlsx 확장자 추가
-            new_file = convert_file.replace('.xls', '_converted.xlsx')
-            
-            # Excel 파일로 저장
-            df.to_excel(new_file, index=False, engine='openpyxl')
-            
-            print(f"{convert_file} -> {new_file} 변환 완료")
-        except Exception as e:
-            print(f"{convert_file} 변환 실패: {e}")
-
-if __name__ == "__main__":
-    convert_html_files_to_excel()
+for convert_file in convert_file_paths:
+    try:
+        # HTML 파일을 pandas로 읽기
+        df = pd.read_html(convert_file, flavor='lxml')[0]  # 첫 번째 테이블 읽기
+        
+        # 파일명에서 확장자를 제거하고 .xlsx 확장자 추가
+        new_file = convert_file.replace('.xls', '_converted.xlsx')
+        
+        # Excel 파일로 저장
+        df.to_excel(new_file, index=False, engine='openpyxl')
+        
+        print(f"{convert_file} -> {new_file} 변환 완료")
+    except Exception as e:
+        print(f"{convert_file} 변환 실패: {e}")
+        
 
 
-
+        
 def Two_cell_merge(j):
     start_site = new_index_values.index(new_index_values[j])
     end_site = new_column_names.index(new_column_names[change_colums])
