@@ -71,7 +71,7 @@ def Four_cell_merge(j_1):
 
 #현장결제 버그 수정됨
 
-print("2024.11.25일 버전")
+print("2024.11.26일 버전")
 print("하계 버전")
  # Tkinter 창을 숨김
 
