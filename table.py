@@ -14,7 +14,7 @@ root.withdraw()  # Tkinter 창을 숨김
 
 # convert된 파일 주소가 들어갈 list
 file_paths = []
-
+print("ver.2024.12.2")
 #tuple 
 convert_file_paths = askopenfilenames(title="엑셀 파일 선택", filetypes=[("Excel 파일", "*.xls")])
 
@@ -74,11 +74,6 @@ def Four_cell_merge(j_1):
     end_site = new_column_names.index(new_column_names[change_colums])
     merges.append((start_site,end_site))     
 
-#현장결제 버그 수정됨
-
-print("2024.11.26일 버전")
-print("하계 버전")
-
 for file_path in file_paths:
 
     
@@ -116,6 +111,7 @@ for file_path in file_paths:
         desired_reservation_time_list_4 = ['06:00~10:00', '08:00~12:00', '10:00~14:00', '12:00~16:00', '14:00~18:00', '16:00~20:00', '18:00~22:00']
         desired_reservation_time_list_r = ['6-8','8-10','10-12','12-14','14-16','16-18','18-20','20-22']
         desired_reservation_time_list_4_r = ['6-10', '8-12', '10-14', '12-16', '14-18', '16-20', '18-22']
+        half_discount = ['11500','15500','4700','5500'] # 동계16-18시
         
         #라이트 사용 여부 판별
         desired_money = [3000,6000]
@@ -251,7 +247,18 @@ for file_path in file_paths:
 
                             Two_cell_fill(j)
 
-                
+                # 동절기 반반 시간대
+                if (df_data['시설명'] == desired_facility_list[change_colums]).any():
+                   condition = (df_data['시설명'] == desired_facility_list[change_colums]) & (df_data['예약시간'] == desired_reservation_time_list[i])& (df_data['결제금액'].isin(half_discount))
+                   if condition.any():
+                    reserved_member = condition[condition].index[0]
+                    combined_value = f"{reserved_member} {desired_reservation_time_list_r[i]} {sign_text}"# 엑셀에 쓰여질 문구
+                    df_sch.loc[[new_index_values[j],new_index_values[j+1]], new_column_names[change_colums]] = combined_value #엑셀에서 사용할 셀의 위치
+
+                    Two_cell_merge (j)
+
+                    Two_cell_fill(j)
+
 
                 j=j+2
                 
@@ -410,9 +417,6 @@ for file_path in file_paths:
             for positions in merges:
                 row, col = positions
                 worksheet.merge_cells(start_row=row + 3, start_column=col + 2, end_row=row + 6, end_column=col + 2)
-
-
-
 
 
             # 열의 너비를 15로 설정
