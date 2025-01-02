@@ -89,7 +89,7 @@ for file_path in file_paths:
     df_data = pd.read_excel(file_path, index_col=0)
 
     #셀에 있는 날짜를 파이썬이 읽고 변환
-    date_string = df_data['예약일'][1].replace('.','-')
+    date_string = df_data['예약일'][0].replace('.','-')
     date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
 
     # weekday 메서드와 변환된 data_object를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
@@ -387,7 +387,7 @@ for file_path in file_paths:
         df_sch = df_sch.replace('nan', '')
 
         # ExcelWriter 객체 생성
-        with pd.ExcelWriter(f" 하드 코트 {df_data['예약일'][1]}.xlsx", engine='openpyxl') as writer:
+        with pd.ExcelWriter(f" 하드 코트 {df_data['예약일'][0]}.xlsx", engine='openpyxl') as writer:
             # DataFrame을 Excel 파일에 쓰기
             df_sch.to_excel(writer, sheet_name='Sheet1', startcol=0, startrow=1, header=True, index=True)
 
@@ -424,7 +424,7 @@ for file_path in file_paths:
                 worksheet.row_dimensions[row_num + 3].height = 33
 
             # 헤더 텍스트 추가
-            header_text = f"                            테니스장 (하드 코트)          {df_data['예약일'][1]} {day_of_week_number}"  # 페이지 번호를 나타내는 예시
+            header_text = f"                            테니스장 (하드 코트)          {df_data['예약일'][0]} {day_of_week_number}"  # 페이지 번호를 나타내는 예시
             worksheet['A1'] = header_text
             worksheet.merge_cells('A1:E1')
 
@@ -507,7 +507,7 @@ for file_path in file_paths:
 
         # 새로운 엑셀 파일을 생성
         df_sch = pd.DataFrame(index=new_index_values, columns=new_column_names)
-        date_string = df_data['예약일'][1].replace('.','-') 
+        date_string = df_data['예약일'][0].replace('.','-') 
         date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
 
         # weekday 메서드를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
@@ -748,10 +748,6 @@ for file_path in file_paths:
                                 Four_cell_fill(j_1)
                 j_1=j_1+2
         
-        # 날짜 문자열을 datetime 객체로 변환
-        date_string = df_data['예약일'][1].replace('.','-') 
-        date_object = datetime.datetime.strptime(date_string, '%Y-%m-%d')
-
         # weekday 메서드를 사용하여 요일을 숫자로 얻기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
         day_of_week_number = date_object.weekday()
 
@@ -764,7 +760,7 @@ for file_path in file_paths:
         df_sch = df_sch.replace('nan', '')
 
         # ExcelWriter 객체 생성
-        with pd.ExcelWriter(f" 정구장 {df_data['예약일'][1]}.xlsx", engine='openpyxl') as writer:
+        with pd.ExcelWriter(f" 정구장 {df_data['예약일'][0]}.xlsx", engine='openpyxl') as writer:
             # DataFrame을 Excel 파일에 쓰기
             df_sch.to_excel(writer, sheet_name='Sheet1', startcol=0, startrow=1, header=True, index=True)
 
@@ -797,7 +793,7 @@ for file_path in file_paths:
                 worksheet.row_dimensions[row_num + 3].height = 33
 
             # 헤더 텍스트 추가
-            header_text = f"                            소프트테니스구장             {df_data['예약일'][1]} {day_of_week_number}"  # 페이지 번호를 나타내는 예시
+            header_text = f"                            소프트테니스구장             {df_data['예약일'][0]} {day_of_week_number}"  # 페이지 번호를 나타내는 예시
             worksheet['A1'] = header_text
             worksheet.merge_cells('A1:I1')
 
